@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        body { background-color: #050505; color: white; min-height: 100vh; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        h1 { font-family: 'Orbitron', sans-serif; color: #0ff; font-size: 2.5rem; margin-bottom: 40px; text-transform: uppercase; text-shadow: 0 0 10px #0ff; }
+        
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; max-width: 1000px; }
+        
+        .project-card { border: 1px solid rgba(0, 255, 255, 0.3); padding: 20px; border-radius: 10px; background: rgba(0, 20, 20, 0.8); transition: 0.3s; }
+        .project-card:hover { transform: translateY(-5px); border-color: #0ff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); }
+        
+        .project-card h2 { color: #fff; margin-bottom: 10px; }
+        .project-card p { color: #aaa; margin-bottom: 20px; font-size: 0.9rem; }
+        
+        .view-btn { text-decoration: none; border: 1px solid #0ff; color: #0ff; padding: 5px 15px; border-radius: 5px; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
+        .view-btn:hover { background: #0ff; color: #000; }
+        
+        .back-btn-container { margin-top: 50px; }
+        .back-btn { text-decoration: none; padding: 10px 30px; background: #0ff; color: #000; font-weight: bold; border-radius: 5px; transition: 0.3s; }
+        .back-btn:hover { background: white; box-shadow: 0 0 15px #0ff; }
+    </style>
+</head>
+<body>
+    <h1>My Projects</h1>
+
+    <div class="projects-grid">
+        <div class="project-card">
+            <h2>Portfolio Website</h2>
+            <p>একটি ব্যক্তিগত পোর্টফোলিও ওয়েবসাইট যা HTML, CSS এবং JS দিয়ে তৈরি।</p>
+            <a href="#" class="view-btn">View Code</a>
+        </div>
+
+        <div class="project-card">
+            <h2>Love Letter Site</h2>
+            <p>প্রিয় মানুষের জন্য তৈরি করা একটি রোমান্টিক অ্যানিমেটেড ওয়েবসাইট।</p>
+            <a href="#" class="view-btn">View Code</a>
+        </div>
+
+        <div class="project-card">
+            <h2>Hacker Terminal</h2>
+            <p>টার্মিনাল স্টাইলের একটি হ্যাকিং সিমুলেশন ওয়েবসাইট ডিজাইন।</p>
+            <a href="#" class="view-btn">View Code</a>
+        </div>
+    </div>
+
+    <div class="back-btn-container">
+        <a href="index.html" class="back-btn">Go Back Home</a>
+    </div>
+</body>
+</html>
