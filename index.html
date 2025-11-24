@@ -3,398 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Jahid Hassan Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- বেসিক সেটআপ --- */
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --primary-color: #38bdf8;
-            --text-color: #e2e8f0;
-            --hover-color: #0ea5e9;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
-
-        /* --- ব্যাকগ্রাউন্ড এনিমেশন (চলমান আলো) --- */
-        .background-blobs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: move 10s infinite alternate;
-        }
-
-        .blob-1 {
-            top: 10%;
-            left: 10%;
-            width: 300px;
-            height: 300px;
-            background: #7c3aed;
-            border-radius: 50%;
-        }
-
-        .blob-2 {
-            bottom: 10%;
-            right: 10%;
-            width: 400px;
-            height: 400px;
-            background: #2563eb;
-            border-radius: 50%;
-            animation-duration: 15s;
-        }
-
-        .blob-3 {
-            top: 40%;
-            left: 50%;
-            width: 250px;
-            height: 250px;
-            background: #db2777;
-            border-radius: 50%;
-            animation-duration: 12s;
-        }
-
-        @keyframes move {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(50px, -50px) scale(1.1); }
-        }
-
-        /* --- নেভিগেশন বার --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 10%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            background: rgba(15, 23, 42, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            cursor: pointer;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            margin-left: 30px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        /* --- হিরো সেকশন (মেইন) --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10%;
-        }
-
-        .hero-text {
-            max-width: 600px;
-        }
-
-        .hero-text h3 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin: 10px 0;
-            line-height: 1.2;
-        }
-
-        .hero-text h1 span {
-            color: var(--primary-color);
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            color: #cbd5e1;
-        }
-
-        /* টাইপিং এফেক্ট */
-        .typing-text {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        /* বাটন ডিজাইন */
-        .btn-group a {
-            text-decoration: none;
-            padding: 12px 28px;
-            background: var(--primary-color);
-            color: #000;
-            border-radius: 40px;
-            font-weight: 600;
-            margin-right: 15px;
-            transition: 0.3s;
-            display: inline-block;
-        }
-
-        .btn-group a:nth-child(2) {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-group a:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        /* প্রোফাইল ছবি */
-        .hero-img img {
-            width: 400px;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 50px rgba(56, 189, 248, 0.2);
-            animation: floatImage 4s ease-in-out infinite;
-        }
-
-        @keyframes floatImage {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-
-        /* --- স্কিলস সেকশন (কার্ড) --- */
-        .skills-section {
-            padding: 80px 10%;
-            text-align: center;
-        }
-
-        .heading {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-        }
-        .heading span { color: var(--primary-color); }
-
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: 0.4s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary-color);
-        }
-
-        .skill-card i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .skill-card h3 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-
-        /* --- কন্টাক্ট সেকশন (সোশ্যাল) --- */
-        .social-links {
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: 0.3s;
-        }
-
-        .social-icon:hover {
-            background: var(--primary-color);
-            color: #000;
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        /* --- মোবাইল রেস্পন্সিভ --- */
-        @media (max-width: 900px) {
-            .hero {
-                flex-direction: column-reverse;
-                text-align: center;
-                padding-top: 100px;
-                height: auto;
-                padding-bottom: 50px;
-            }
-            .hero-img img {
-                width: 250px;
-                height: 250px;
-                margin-bottom: 30px;
-            }
-            nav { padding: 20px 5%; }
-            nav ul { display: none; } /* ছোট স্ক্রিনে মেনু লুকানো */
-            .hero-text h1 { font-size: 2.5rem; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        body { background-color: #000; color: white; height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle, #1a1a2e 0%, #000000 100%); }
+        .card-container { perspective: 1000px; }
+        .card { width: 350px; padding: 40px 30px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 0 30px rgba(0, 255, 255, 0.1); transform-style: preserve-3d; transition: transform 0.1s; position: relative; }
+        .card::before, .card::after { content: ''; position: absolute; width: 50px; height: 50px; border: 3px solid #0ff; transition: 0.3s; }
+        .card::before { top: -2px; left: -2px; border-right: none; border-bottom: none; border-radius: 15px 0 0 0; }
+        .card::after { bottom: -2px; right: -2px; border-left: none; border-top: none; border-radius: 0 0 15px 0; }
+        .content { transform: translateZ(50px); }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #0ff; padding: 5px; margin-bottom: 20px; box-shadow: 0 0 20px #0ff; object-fit: cover; }
+        .name { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; animation: glitch 3s infinite; }
+        @keyframes glitch { 0% { text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; } 90% { transform: translate(0); } 92% { transform: translate(2px, 2px); } 94% { transform: translate(-2px, -2px); } 100% { text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; } }
+        .role { color: #0ff; font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 3px; }
+        
+        .btn-container { display: flex; flex-direction: column; gap: 15px; }
+        .btn { text-decoration: none; padding: 12px; background: rgba(0, 255, 255, 0.1); color: #0ff; border: 1px solid #0ff; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; position: relative; overflow: hidden; }
+        .btn:hover { background: #0ff; color: #000; box-shadow: 0 0 20px #0ff; transform: scale(1.05); }
+        
+        .socials { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
+        .socials a { color: #888; font-size: 1.5rem; transition: 0.3s; }
+        .socials a:hover { color: #0ff; transform: translateY(-3px); text-shadow: 0 0 10px #0ff; }
     </style>
 </head>
 <body>
+    <canvas id="particles"></canvas>
+    <div class="card-container">
+        <div class="card" id="tiltCard">
+            <div class="content">
+                <img src="https://i.ibb.co/rt3HybH/placeholder-profile.jpg" alt="Profile" class="profile-img">
+                <h1 class="name">Jahid Hassan</h1>
+                <p class="role">CREATIVE DEVELOPER</p>
 
-    <div class="background-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+                <div class="btn-container">
+                    <a href="about.html" class="btn">About Me</a>
+                    <a href="projects.html" class="btn">My Projects</a>
+                    <a href="https://github.com" target="_blank" class="btn">GitHub Profile</a>
+                </div>
+
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <nav>
-        <div class="logo">MyPortfolio.</div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-text">
-            <h3>Hello, It's Me</h3>
-            <h1>Jahid Hassan <br> <span>Rinkq</span></h1>
-            
-            <h3>And I'm a <span class="typing-text"></span></h3>
-            
-            <p>I build professional websites with beautiful designs and smooth animations. Welcome to my creative world!</p>
-            
-            <div class="btn-group">
-                <a href="#">Download CV</a>
-                <a href="https://github.com" target="_blank">Visit Github</a>
-            </div>
-
-            <div class="social-links">
-                <a href="https://www.facebook.com/rinkq2" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-        </div>
-
-        <div class="hero-img">
-            <img src="https://i.postimg.cc/zGnDwYFP/1763804237297.png" alt="Profile Picture">
-        </div>
-    </section>
-
-    <section class="skills-section">
-        <h2 class="heading">My <span>Skills</span></h2>
-        
-        <div class="skills-container">
-            <div class="skill-card">
-                <i class="fas fa-code"></i>
-                <h3>Web Development</h3>
-                <p>Expert in HTML, CSS & JavaScript.</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-paint-brush"></i>
-                <h3>Web Design</h3>
-                <p>Creative UI/UX & Modern Animations.</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Responsive</h3>
-                <p>Compatible with Mobile & Desktop.</p>
-            </div>
-        </div>
-    </section>
-
     <script>
-        // টাইপিং এনিমেশন লজিক
-        const typingText = document.querySelector('.typing-text');
-        const words = ["Web Developer", "Frontend Designer", "Content Creator", "Tech Lover"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        // 3D Tilt Script
+        const card = document.getElementById('tiltCard');
+        const container = document.querySelector('.card-container');
+        container.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 20;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 20;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+        container.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; });
 
-        function type() {
-            const currentWord = words[wordIndex];
-            
-            if (isDeleting) {
-                typingText.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingText.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                isDeleting = true;
-                setTimeout(type, 2000); // লেখা শেষ হলে কিছুক্ষণ থামবে
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                setTimeout(type, 500);
-            } else {
-                setTimeout(type, isDeleting ? 100 : 200);
+        // Particles Script
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particlesArray; let mouse = { x: null, y: null, radius: (canvas.height/80) * (canvas.width/80) }
+        window.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; });
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) { this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color; }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#00ffff'; ctx.fill(); }
+            update() {
+                if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+                let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){ if (mouse.x < this.x && this.x < canvas.width - this.size * 10) { this.x += 3; } if (mouse.x > this.x && this.x > this.size * 10) { this.x -= 3; } if (mouse.y < this.y && this.y < canvas.height - this.size * 10) { this.y += 3; } if (mouse.y > this.y && this.y > this.size * 10) { this.y -= 3; } }
+                this.x += this.directionX; this.y += this.directionY; this.draw();
             }
         }
-
-        // এনিমেশন শুরু
-        document.addEventListener('DOMContentLoaded', type);
+        function init() { particlesArray = []; let numberOfParticles = (canvas.height * canvas.width) / 9000; for (let i = 0; i < numberOfParticles; i++) { let size = (Math.random() * 2) + 1; let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2); let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2); let directionX = (Math.random() * 2) - 1; let directionY = (Math.random() * 2) - 1; let color = '#00ffff'; particlesArray.push(new Particle(x, y, directionX, directionY, size, color)); } }
+        function connect() { let opacityValue = 1; for (let a = 0; a < particlesArray.length; a++) { for (let b = a; b < particlesArray.length; b++) { let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); if (distance < (canvas.width/7) * (canvas.height/7)) { opacityValue = 1 - (distance/20000); ctx.strokeStyle = 'rgba(0, 255, 255,' + opacityValue + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke(); } } } }
+        function animate() { requestAnimationFrame(animate); ctx.clearRect(0, 0, innerWidth, innerHeight); for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); } connect(); }
+        window.addEventListener('resize', function(){ canvas.width = innerWidth; canvas.height = innerHeight; mouse.radius = ((canvas.height/80) * (canvas.height/80)); init(); });
+        init(); animate();
     </script>
 </body>
 </html>
