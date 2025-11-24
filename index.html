@@ -3,40 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jahid Hassan Portfolio</title>
+    <title>Jahid Hassan | Next Gen</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
-        body { background-color: #000; color: white; height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle, #1a1a2e 0%, #000000 100%); }
-        .card-container { perspective: 1000px; }
-        .card { width: 350px; padding: 40px 30px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 0 30px rgba(0, 255, 255, 0.1); transform-style: preserve-3d; transition: transform 0.1s; position: relative; }
+        /* --- বেসিক সেটআপ --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; cursor: none; /* ডিফল্ট কার্সার অফ */ }
+
+        body {
+            background-color: #000;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- ১. কাস্টম কার্সার --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: #0ff; }
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid #0ff; transition: all 0.1s ease-out; }
+
+        /* --- ২. লোডিং স্ক্রিন (Preloader) --- */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 1s ease-out;
+        }
+        .loader-ring {
+            width: 80px; height: 80px; border: 5px solid transparent; border-top-color: #0ff; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        .loader-text {
+            color: #0ff; font-family: 'Orbitron'; letter-spacing: 3px; animation: blink 1s infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* --- ৩. মিউজিক বাটন --- */
+        .music-btn {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: rgba(0, 255, 255, 0.1); border: 1px solid #0ff;
+            color: #0ff; padding: 10px 15px; border-radius: 50px;
+            cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .music-btn:hover { background: #0ff; color: #000; box-shadow: 0 0 15px #0ff; }
+
+        /* --- ব্যাকগ্রাউন্ড ক্যানভাস --- */
+        #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle, #0b0b14 0%, #000000 100%); }
+
+        /* --- কার্ড ডিজাইন (আগের মতোই) --- */
+        .card-container { perspective: 1000px; opacity: 0; transform: scale(0.8); transition: all 1s ease-out; }
+        .card { width: 350px; padding: 40px 30px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 0 50px rgba(0, 255, 255, 0.1); transform-style: preserve-3d; transition: transform 0.1s; position: relative; }
         .card::before, .card::after { content: ''; position: absolute; width: 50px; height: 50px; border: 3px solid #0ff; transition: 0.3s; }
         .card::before { top: -2px; left: -2px; border-right: none; border-bottom: none; border-radius: 15px 0 0 0; }
         .card::after { bottom: -2px; right: -2px; border-left: none; border-top: none; border-radius: 0 0 15px 0; }
         .content { transform: translateZ(50px); }
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #0ff; padding: 5px; margin-bottom: 20px; box-shadow: 0 0 20px #0ff; object-fit: cover; }
-        .name { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; animation: glitch 3s infinite; }
+        .profile-img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid #0ff; padding: 5px; margin-bottom: 20px; box-shadow: 0 0 30px #0ff; object-fit: cover; }
+        .name { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; animation: glitch 3s infinite; }
         @keyframes glitch { 0% { text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; } 90% { transform: translate(0); } 92% { transform: translate(2px, 2px); } 94% { transform: translate(-2px, -2px); } 100% { text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; } }
-        .role { color: #0ff; font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 3px; }
+        .role { color: #0ff; font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 4px; }
         
         .btn-container { display: flex; flex-direction: column; gap: 15px; }
-        .btn { text-decoration: none; padding: 12px; background: rgba(0, 255, 255, 0.1); color: #0ff; border: 1px solid #0ff; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; position: relative; overflow: hidden; }
-        .btn:hover { background: #0ff; color: #000; box-shadow: 0 0 20px #0ff; transform: scale(1.05); }
+        .btn { text-decoration: none; padding: 12px; background: rgba(0, 255, 255, 0.05); color: #0ff; border: 1px solid #0ff; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; position: relative; overflow: hidden; }
+        .btn:hover { background: #0ff; color: #000; box-shadow: 0 0 30px #0ff; transform: scale(1.05); }
         
         .socials { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
         .socials a { color: #888; font-size: 1.5rem; transition: 0.3s; }
-        .socials a:hover { color: #0ff; transform: translateY(-3px); text-shadow: 0 0 10px #0ff; }
+        .socials a:hover { color: #0ff; transform: translateY(-5px); text-shadow: 0 0 20px #0ff; }
+
     </style>
 </head>
 <body>
+
+    <div class="preloader" id="preloader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">SYSTEM INITIALIZING...</div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_3457a44c7b.mp3" type="audio/mp3">
+    </audio>
+    <button class="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-play"></i> MUSIC ON
+    </button>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
     <canvas id="particles"></canvas>
-    <div class="card-container">
+
+    <div class="card-container" id="mainContent">
         <div class="card" id="tiltCard">
             <div class="content">
-                <img src="https://i.postimg.cc/zGnDwYFP/1763804237297.png" alt="Profile" class="profile-img">
+                <img src="https://i.ibb.co/rt3HybH/placeholder-profile.jpg" alt="Profile" class="profile-img">
+                
                 <h1 class="name">Jahid Hassan</h1>
                 <p class="role">CREATIVE DEVELOPER</p>
 
@@ -56,7 +125,52 @@
     </div>
 
     <script>
-        // 3D Tilt Script
+        // --- ১. প্রি-লোডার লজিক ---
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('preloader').style.display = 'none';
+                    // কার্ড এন্ট্রি এনিমেশন
+                    const content = document.getElementById('mainContent');
+                    content.style.opacity = '1';
+                    content.style.transform = 'scale(1)';
+                }, 1000);
+            }, 2000); // ২ সেকেন্ড লোডিং হবে
+        }
+
+        // --- ২. মিউজিক প্লেয়ার লজিক ---
+        const music = document.getElementById('bgMusic');
+        let isPlaying = false;
+        function toggleMusic() {
+            const btn = document.querySelector('.music-btn');
+            if (isPlaying) {
+                music.pause();
+                btn.innerHTML = '<i class="fas fa-play"></i> MUSIC ON';
+            } else {
+                music.play();
+                btn.innerHTML = '<i class="fas fa-pause"></i> MUSIC OFF';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // --- ৩. কাস্টম কার্সার লজিক ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            // আউটলাইন একটু দেরিতে আসবে
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // --- ৪. 3D টিল্ট এফেক্ট ---
         const card = document.getElementById('tiltCard');
         const container = document.querySelector('.card-container');
         container.addEventListener('mousemove', (e) => {
@@ -66,7 +180,7 @@
         });
         container.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; });
 
-        // Particles Script
+        // --- ৫. পার্টিকল ব্যাকগ্রাউন্ড ---
         const canvas = document.getElementById("particles");
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
