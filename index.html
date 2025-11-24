@@ -9,7 +9,7 @@
     
     <style>
         /* --- বেসিক সেটআপ --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; cursor: none; /* ডিফল্ট কার্সার অফ */ }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; cursor: none; }
 
         body {
             background-color: #000;
@@ -29,53 +29,44 @@
         .cursor-dot { width: 8px; height: 8px; background-color: #0ff; }
         .cursor-outline { width: 40px; height: 40px; border: 2px solid #0ff; transition: all 0.1s ease-out; }
 
-        /* --- ২. লোডিং স্ক্রিন (Preloader) --- */
-        .preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            transition: opacity 1s ease-out;
-        }
-        .loader-ring {
-            width: 80px; height: 80px; border: 5px solid transparent; border-top-color: #0ff; border-radius: 50%;
-            animation: spin 1s linear infinite; margin-bottom: 20px;
-        }
-        .loader-text {
-            color: #0ff; font-family: 'Orbitron'; letter-spacing: 3px; animation: blink 1s infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        /* --- ৩. মিউজিক বাটন --- */
-        .music-btn {
+        /* --- ২. নতুন এফেক্ট বাটন (ম্যাজিক বাটন) --- */
+        .effect-btn {
             position: fixed; top: 20px; right: 20px; z-index: 100;
-            background: rgba(0, 255, 255, 0.1); border: 1px solid #0ff;
-            color: #0ff; padding: 10px 15px; border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid #0ff;
+            color: #0ff; padding: 8px 15px; border-radius: 50px;
             cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem;
-            transition: 0.3s;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px;
         }
-        .music-btn:hover { background: #0ff; color: #000; box-shadow: 0 0 15px #0ff; }
+        .effect-btn:hover { background: #0ff; color: #000; box-shadow: 0 0 15px #0ff; }
 
         /* --- ব্যাকগ্রাউন্ড ক্যানভাস --- */
         #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle, #0b0b14 0%, #000000 100%); }
 
-        /* --- কার্ড ডিজাইন (আগের মতোই) --- */
-        .card-container { perspective: 1000px; opacity: 0; transform: scale(0.8); transition: all 1s ease-out; }
+        /* --- কার্ড ডিজাইন --- */
+        .card-container { perspective: 1000px; }
         .card { width: 350px; padding: 40px 30px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 0 50px rgba(0, 255, 255, 0.1); transform-style: preserve-3d; transition: transform 0.1s; position: relative; }
-        .card::before, .card::after { content: ''; position: absolute; width: 50px; height: 50px; border: 3px solid #0ff; transition: 0.3s; }
+        
+        .card::before, .card::after { content: ''; position: absolute; width: 50px; height: 50px; border: 3px solid #0ff; transition: 0.3s; pointer-events: none; }
         .card::before { top: -2px; left: -2px; border-right: none; border-bottom: none; border-radius: 15px 0 0 0; }
         .card::after { bottom: -2px; right: -2px; border-left: none; border-top: none; border-radius: 0 0 15px 0; }
+        
         .content { transform: translateZ(50px); }
+        
+        /* প্রোফাইল ইমেজ */
         .profile-img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid #0ff; padding: 5px; margin-bottom: 20px; box-shadow: 0 0 30px #0ff; object-fit: cover; }
+        
+        /* নাম ও গ্লিচ এফেক্ট */
         .name { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; animation: glitch 3s infinite; }
         @keyframes glitch { 0% { text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; } 90% { transform: translate(0); } 92% { transform: translate(2px, 2px); } 94% { transform: translate(-2px, -2px); } 100% { text-shadow: 2px 2px 0px #ff00de, -2px -2px 0px #00ffff; } }
+        
         .role { color: #0ff; font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 4px; }
         
+        /* বাটন গ্রুপ */
         .btn-container { display: flex; flex-direction: column; gap: 15px; }
         .btn { text-decoration: none; padding: 12px; background: rgba(0, 255, 255, 0.05); color: #0ff; border: 1px solid #0ff; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; position: relative; overflow: hidden; }
         .btn:hover { background: #0ff; color: #000; box-shadow: 0 0 30px #0ff; transform: scale(1.05); }
         
+        /* সোশ্যাল আইকন */
         .socials { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
         .socials a { color: #888; font-size: 1.5rem; transition: 0.3s; }
         .socials a:hover { color: #0ff; transform: translateY(-5px); text-shadow: 0 0 20px #0ff; }
@@ -84,16 +75,8 @@
 </head>
 <body>
 
-    <div class="preloader" id="preloader">
-        <div class="loader-ring"></div>
-        <div class="loader-text">SYSTEM INITIALIZING...</div>
-    </div>
-
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_3457a44c7b.mp3" type="audio/mp3">
-    </audio>
-    <button class="music-btn" onclick="toggleMusic()">
-        <i class="fas fa-play"></i> MUSIC ON
+    <button class="effect-btn" onclick="toggleEffect()">
+        <i class="fas fa-magic"></i> MAGIC OFF
     </button>
 
     <div class="cursor-dot"></div>
@@ -101,7 +84,7 @@
 
     <canvas id="particles"></canvas>
 
-    <div class="card-container" id="mainContent">
+    <div class="card-container">
         <div class="card" id="tiltCard">
             <div class="content">
                 <img src="https://i.ibb.co/rt3HybH/placeholder-profile.jpg" alt="Profile" class="profile-img">
@@ -125,36 +108,26 @@
     </div>
 
     <script>
-        // --- ১. প্রি-লোডার লজিক ---
-        window.onload = function() {
-            setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                    // কার্ড এন্ট্রি এনিমেশন
-                    const content = document.getElementById('mainContent');
-                    content.style.opacity = '1';
-                    content.style.transform = 'scale(1)';
-                }, 1000);
-            }, 2000); // ২ সেকেন্ড লোডিং হবে
-        }
-
-        // --- ২. মিউজিক প্লেয়ার লজিক ---
-        const music = document.getElementById('bgMusic');
-        let isPlaying = false;
-        function toggleMusic() {
-            const btn = document.querySelector('.music-btn');
-            if (isPlaying) {
-                music.pause();
-                btn.innerHTML = '<i class="fas fa-play"></i> MUSIC ON';
+        // ১. এফেক্ট টগল লজিক (নতুন)
+        let isMulticolor = false;
+        function toggleEffect() {
+            const btn = document.querySelector('.effect-btn');
+            isMulticolor = !isMulticolor;
+            
+            if (isMulticolor) {
+                btn.innerHTML = '<i class="fas fa-magic"></i> MAGIC ON';
+                btn.style.background = "#ff00de";
+                btn.style.color = "#fff";
+                btn.style.borderColor = "#ff00de";
             } else {
-                music.play();
-                btn.innerHTML = '<i class="fas fa-pause"></i> MUSIC OFF';
+                btn.innerHTML = '<i class="fas fa-magic"></i> MAGIC OFF';
+                btn.style.background = "rgba(255, 255, 255, 0.05)";
+                btn.style.color = "#0ff";
+                btn.style.borderColor = "#0ff";
             }
-            isPlaying = !isPlaying;
         }
 
-        // --- ৩. কাস্টম কার্সার লজিক ---
+        // ২. কাস্টম কার্সার
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         window.addEventListener('mousemove', (e) => {
@@ -162,15 +135,13 @@
             const posY = e.clientY;
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
-            
-            // আউটলাইন একটু দেরিতে আসবে
             cursorOutline.animate({
                 left: `${posX}px`,
                 top: `${posY}px`
             }, { duration: 500, fill: "forwards" });
         });
 
-        // --- ৪. 3D টিল্ট এফেক্ট ---
+        // ৩. 3D টিল্ট এফেক্ট
         const card = document.getElementById('tiltCard');
         const container = document.querySelector('.card-container');
         container.addEventListener('mousemove', (e) => {
@@ -180,15 +151,36 @@
         });
         container.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; });
 
-        // --- ৫. পার্টিকল ব্যাকগ্রাউন্ড ---
+        // ৪. পার্টিকল ব্যাকগ্রাউন্ড (আপডেটেড)
         const canvas = document.getElementById("particles");
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let particlesArray; let mouse = { x: null, y: null, radius: (canvas.height/80) * (canvas.width/80) }
+        let particlesArray; 
+        let mouse = { x: null, y: null, radius: (canvas.height/80) * (canvas.width/80) }
+        
         window.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; });
+
         class Particle {
-            constructor(x, y, directionX, directionY, size, color) { this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color; }
-            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#00ffff'; ctx.fill(); }
+            constructor(x, y, directionX, directionY, size, color) { 
+                this.x = x; this.y = y; 
+                this.directionX = directionX; this.directionY = directionY; 
+                this.size = size; 
+                this.baseColor = color;
+                this.randomColor = 'hsl(' + Math.random() * 360 + ', 100%, 50%)'; // রেন্ডম কালার
+            }
+            draw() { 
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
+                
+                // বাটন অন থাকলে রেন্ডম কালার, অফ থাকলে নীল কালার
+                if(isMulticolor) {
+                    ctx.fillStyle = this.randomColor;
+                } else {
+                    ctx.fillStyle = '#00ffff';
+                }
+                
+                ctx.fill(); 
+            }
             update() {
                 if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
                 if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
@@ -198,7 +190,27 @@
             }
         }
         function init() { particlesArray = []; let numberOfParticles = (canvas.height * canvas.width) / 9000; for (let i = 0; i < numberOfParticles; i++) { let size = (Math.random() * 2) + 1; let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2); let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2); let directionX = (Math.random() * 2) - 1; let directionY = (Math.random() * 2) - 1; let color = '#00ffff'; particlesArray.push(new Particle(x, y, directionX, directionY, size, color)); } }
-        function connect() { let opacityValue = 1; for (let a = 0; a < particlesArray.length; a++) { for (let b = a; b < particlesArray.length; b++) { let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); if (distance < (canvas.width/7) * (canvas.height/7)) { opacityValue = 1 - (distance/20000); ctx.strokeStyle = 'rgba(0, 255, 255,' + opacityValue + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke(); } } } }
+        
+        function connect() { 
+            let opacityValue = 1; 
+            for (let a = 0; a < particlesArray.length; a++) { 
+                for (let b = a; b < particlesArray.length; b++) { 
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); 
+                    if (distance < (canvas.width/7) * (canvas.height/7)) { 
+                        opacityValue = 1 - (distance/20000); 
+                        
+                        // লাইন কালার চেঞ্জ লজিক
+                        if(isMulticolor) {
+                             ctx.strokeStyle = 'rgba(' + Math.random()*255 + ',' + Math.random()*255 + ',' + Math.random()*255 + ',' + opacityValue + ')';
+                        } else {
+                             ctx.strokeStyle = 'rgba(0, 255, 255,' + opacityValue + ')'; 
+                        }
+                        
+                        ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke(); 
+                    } 
+                } 
+            } 
+        }
         function animate() { requestAnimationFrame(animate); ctx.clearRect(0, 0, innerWidth, innerHeight); for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); } connect(); }
         window.addEventListener('resize', function(){ canvas.width = innerWidth; canvas.height = innerHeight; mouse.radius = ((canvas.height/80) * (canvas.height/80)); init(); });
         init(); animate();
